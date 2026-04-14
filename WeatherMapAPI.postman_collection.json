@@ -1,0 +1,156 @@
+{
+  "info": {
+    "name": "Weather Map API",
+    "_postman_id": "weather-map-api-collection",
+    "description": "OpenWeatherMap API test collection with 4 test cases",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Test 1 - Verify Latitude and Longitude",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "",
+              "pm.test('Latitude is 51.51', function () {",
+              "    pm.expect(jsonData.coord.lat).to.eql(51.51);",
+              "});",
+              "",
+              "pm.test('Longitude is -0.13', function () {",
+              "    pm.expect(jsonData.coord.lon).to.eql(-0.13);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22",
+          "protocol": "https",
+          "host": ["samples", "openweathermap", "org"],
+          "path": ["data", "2.5", "weather"],
+          "query": [
+            { "key": "q", "value": "London,uk" },
+            { "key": "appid", "value": "b6907d289e10d714a6e88b30761fae22" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Test 2 - Verify Status Code is 200",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response time is less than 3000ms', function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22",
+          "protocol": "https",
+          "host": ["samples", "openweathermap", "org"],
+          "path": ["data", "2.5", "weather"],
+          "query": [
+            { "key": "q", "value": "London,uk" },
+            { "key": "appid", "value": "b6907d289e10d714a6e88b30761fae22" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Test 3 - Verify City Name is London",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "",
+              "pm.test('City name is London', function () {",
+              "    pm.expect(jsonData.name).to.eql('London');",
+              "});",
+              "",
+              "pm.test('Country code is GB', function () {",
+              "    pm.expect(jsonData.sys.country).to.eql('GB');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22",
+          "protocol": "https",
+          "host": ["samples", "openweathermap", "org"],
+          "path": ["data", "2.5", "weather"],
+          "query": [
+            { "key": "q", "value": "London,uk" },
+            { "key": "appid", "value": "b6907d289e10d714a6e88b30761fae22" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Test 4 - Verify Weather Description Exists",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "",
+              "pm.test('Weather array is not empty', function () {",
+              "    pm.expect(jsonData.weather).to.be.an('array').that.is.not.empty;",
+              "});",
+              "",
+              "pm.test('Weather description is a non-empty string', function () {",
+              "    pm.expect(jsonData.weather[0].description).to.be.a('string').and.not.empty;",
+              "});",
+              "",
+              "pm.test('Temperature field exists in response', function () {",
+              "    pm.expect(jsonData.main).to.have.property('temp');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22",
+          "protocol": "https",
+          "host": ["samples", "openweathermap", "org"],
+          "path": ["data", "2.5", "weather"],
+          "query": [
+            { "key": "q", "value": "London,uk" },
+            { "key": "appid", "value": "b6907d289e10d714a6e88b30761fae22" }
+          ]
+        }
+      }
+    }
+  ]
+}
